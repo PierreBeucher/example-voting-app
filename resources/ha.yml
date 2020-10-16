@@ -1,0 +1,8 @@
+vote:
+  deploy:
+    replicas: 2
+    update_config:
+      parallelism: 2
+      delay: 5s
+    restart_policy:
+      condition: on-failure
