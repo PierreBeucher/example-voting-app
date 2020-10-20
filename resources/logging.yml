@@ -1,0 +1,6 @@
+services:
+  vote:
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
