@@ -1,12 +1,39 @@
 version: "3"
 services:
 
+  #
+  # Frontend components
+  #
+  vote:
+    image: vote:local
+    ports:
+      - 5000:80
+    depends_on:
+      - redis
+
   redis:
     image: redis:alpine
     ports:
       - "6379"
-    networks:
-      - frontend
+
+  #
+  # Middle components
+  #
+  worker:
+    image: worker:local
+    depends_on:
+      - db
+      - redis
+
+  #
+  # Backend components
+  #
+  result:
+    image: result:local
+    ports:
+      - 5001:80
+    depends_on:
+      - db
 
   db:
     image: postgres:9.4
@@ -15,39 +42,6 @@ services:
       POSTGRES_PASSWORD: "postgres"
     volumes:
       - db-data:/var/lib/postgresql/data
-    networks:
-      - backend
-
-  vote:
-    image: vote:local
-    ports:
-      - 5000:80
-    networks:
-      - frontend
-    depends_on:
-      - redis
-
-  result:
-    image: result:local
-    ports:
-      - 5001:80
-    networks:
-      - backend
-    depends_on:
-      - db
-
-  worker:
-    image: worker:local
-    networks:
-      - frontend
-      - backend
-    depends_on:
-      - db
-      - redis
-
-networks:
-  frontend:
-  backend:
 
 volumes:
   db-data:

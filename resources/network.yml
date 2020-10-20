@@ -1,0 +1,15 @@
+services:
+  vote:
+    networks:
+      - front-tier
+      - back-tier
+      
+# Networks to use for
+#  vote: frontend
+#  redis: frontend
+#  worker: frontend and backend
+#  result: backend
+#  db: backend
+networks:
+  front-tier:
+  back-tier:
