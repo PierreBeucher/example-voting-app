@@ -1,0 +1,160 @@
+version: "3"
+services:
+
+  #
+  # Frontend components
+  #
+  vote:
+    image: vote:local
+    ports:
+      - 5000:80
+    depends_on:
+      - redis
+    networks:
+      - front-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379"
+    networks:
+      - front-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+
+  #
+  # Middle components
+  #
+  worker:
+    image: worker:local
+    depends_on:
+      - db
+      - redis
+    networks:
+      - back-tier
+      - front-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+
+  #
+  # Backend components
+  #
+  result:
+    image: result:local
+    ports:
+      - 5001:80
+    depends_on:
+      - db
+    networks:
+      - back-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+
+  db:
+    image: postgres:9.4
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - back-tier
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 200M
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
+
+
+volumes:
+  db-data:
+
+# Networks to use for
+#  vote: frontend
+#  redis: frontend
+#  worker: frontend and backend
+#  result: backend
+#  db: backend
+networks:
+  front-tier:
+  back-tier:
