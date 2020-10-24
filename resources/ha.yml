@@ -1,11 +1,11 @@
 # Only set 2 replicas for vote, worker and result
-# Leave a single replica for and and redis
+# Leave a single replica for mongo and redis
 services:
   vote:
     deploy:
       replicas: 2
       update_config:
-        parallelism: 2
-        delay: 5s
+        parallelism: 1
+        delay: 10s
       restart_policy:
         condition: on-failure
