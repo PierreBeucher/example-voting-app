@@ -7,14 +7,18 @@ services:
   vote:
     image: registry.gitlab.com/crafteo/example-voting-app/vote
     ports:
-      - 5000:80
+      - 8080:80
     depends_on:
       - redis
+    networks:
+      - vote_net
 
   redis:
     image: redis:alpine
     ports:
       - "6379"
+    networks:
+      - vote_net
 
   #
   # Middle components
@@ -24,6 +28,8 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - vote_net
 
   #
   # Backend components
@@ -31,9 +37,11 @@ services:
   result:
     image: registry.gitlab.com/crafteo/example-voting-app/result
     ports:
-      - 5001:80
+      - 8081:80
     depends_on:
       - db
+    networks:
+      - vote_net
 
   db:
     image: postgres:9.4
@@ -42,6 +50,12 @@ services:
       POSTGRES_PASSWORD: "postgres"
     volumes:
       - db-data:/var/lib/postgresql/data
+    networks:
+      - vote_net
 
 volumes:
   db-data:
+
+networks:
+  vote_net:
+    driver: overlay
