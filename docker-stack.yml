@@ -5,7 +5,7 @@ services:
   # Frontend components
   #
   vote:
-    image: vote:local
+    image: registry.gitlab.com/crafteo/example-voting-app/vote
     ports:
       - 5000:80
     depends_on:
@@ -20,7 +20,7 @@ services:
   # Middle components
   #
   worker:
-    image: worker:local
+    image: registry.gitlab.com/crafteo/example-voting-app/worker
     depends_on:
       - db
       - redis
@@ -29,7 +29,7 @@ services:
   # Backend components
   #
   result:
-    image: result:local
+    image: registry.gitlab.com/crafteo/example-voting-app/result
     ports:
       - 5001:80
     depends_on:
