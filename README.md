@@ -12,7 +12,7 @@ Commands to run on `host1`:
 ```sh
 # ssh into host1:
 #
-#   ssh ubuntu@ssh ubuntu@host1.traning.crafteo.io
+#   ssh ubuntu@ssh ubuntu@host1.training.crafteo.io
 #
 # Init Docker swarm from host1
 # Keep outputed token!
@@ -23,7 +23,7 @@ Commands to run on `host2`:
 ```sh
 # ssh into host1:
 #
-#   ssh ubuntu@ssh ubuntu@host2.traning.crafteo.io
+#   ssh ubuntu@ssh ubuntu@host2.training.crafteo.io
 #
 docker swarm join [TOKEN]
 ```
@@ -33,7 +33,7 @@ docker swarm join [TOKEN]
 ```sh
 # ssh into host1:
 #
-#   ssh ubuntu@ssh ubuntu@host1.traning.crafteo.io
+#   ssh ubuntu@ssh ubuntu@host1.training.crafteo.io
 #
 
 # Clone Voting App repo
