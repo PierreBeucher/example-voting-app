@@ -22,7 +22,7 @@ services:
           cpus: '0.50'
           memory: 50M
         reservations:
-          cpus: '0.25'
+          cpus: '0.1'
           memory: 20M
       replicas: 2
       update_config:
@@ -48,7 +48,7 @@ services:
           cpus: '0.50'
           memory: 50M
         reservations:
-          cpus: '0.25'
+          cpus: '0.1'
           memory: 20M
       replicas: 1
       update_config:
@@ -78,7 +78,7 @@ services:
           cpus: '0.50'
           memory: 50M
         reservations:
-          cpus: '0.25'
+          cpus: '0.1'
           memory: 20M
       replicas: 2
       update_config:
@@ -108,7 +108,7 @@ services:
           cpus: '0.50'
           memory: 50M
         reservations:
-          cpus: '0.25'
+          cpus: '0.1'
           memory: 20M
       replicas: 2
       update_config:
@@ -132,7 +132,7 @@ services:
           cpus: '0.50'
           memory: 500M
         reservations:
-          cpus: '0.25'
+          cpus: '0.1'
           memory: 200M
       replicas: 1
       update_config:
