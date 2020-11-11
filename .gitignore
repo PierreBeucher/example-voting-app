@@ -4,3 +4,9 @@ bin/
 obj/
 .vs/
 node_modules/
+
+# Docker certs
+resources/daemon-tls/client
+resources/daemon-tls/ca
+resources/daemon-tls/server
+resources/daemon-tls/docker-daemon-config.json
