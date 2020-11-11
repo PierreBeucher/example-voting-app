@@ -30,8 +30,9 @@ services:
   logstash:
     image: logstash:7.7.0
     networks:
-      - vote_net
       - elk_net
+    ports:
+    - 8089:8089
     volumes:
       - ./logstash:/usr/share/logstash/pipeline
     depends_on:
