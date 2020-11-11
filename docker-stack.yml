@@ -12,6 +12,11 @@ services:
       - redis
     networks:
       - vote_net
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 50M
 
   redis:
     image: redis:alpine
@@ -19,6 +24,11 @@ services:
       - "6379"
     networks:
       - vote_net
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 20M
 
   #
   # Middle components
@@ -30,6 +40,11 @@ services:
       - redis
     networks:
       - vote_net
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 50M
 
   #
   # Backend components
@@ -42,6 +57,11 @@ services:
       - db
     networks:
       - vote_net
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 50M
 
   db:
     image: postgres:9.4
@@ -52,6 +72,11 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - vote_net
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 50M
 
 volumes:
   db-data:

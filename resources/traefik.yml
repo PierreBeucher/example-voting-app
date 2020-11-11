@@ -24,6 +24,10 @@
       placement:
         constraints:
           - "node.role==manager"
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 50M
 
   vote:
     deploy:
