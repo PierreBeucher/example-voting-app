@@ -23,3 +23,6 @@ portainer-rm:
 
 sync:
 	rsync -r ./ ubuntu@pierre1.training.crafteo.io:~
+
+stats:
+	docker ps -q | xargs docker stats --no-stream
