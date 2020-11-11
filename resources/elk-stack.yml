@@ -4,23 +4,46 @@ services:
     image: elasticsearch:7.7.0
     environment:
     - "discovery.type=single-node"
-    ports:
-    - 9200:9200
-    - 9300:9300
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    networks:
+    - elk_net
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 50M
 
   kibana:
     image: kibana:7.7.0
     ports:
-    - 5601:5601
+    - 8082:5601
     depends_on:
       - elasticsearch
+    networks:
+    - elk_net
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 50M
 
   logstash:
     image: logstash:7.7.0
-    ports:
-    - 9600:9600
-    - 8089:8089
+    networks:
+      - vote_net
+      - elk_net
     volumes:
       - ./logstash:/usr/share/logstash/pipeline
     depends_on:
       - elasticsearch
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 50M
+
+networks:
+  vote_net:
+    driver: overlay
+  elk_net:
+    driver: overlay
