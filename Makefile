@@ -20,3 +20,6 @@ portainer:
 
 portainer-rm:
 	docker stack rm portainer
+
+sync:
+	rsync -r ./ ubuntu@pierre1.training.crafteo.io:~
