@@ -5,6 +5,7 @@ services:
     image: vote:local
     build: ./vote
     command: python app.py
+    container_name: vote
     volumes:
      - ./vote:/app
     ports:
@@ -17,6 +18,7 @@ services:
     image: result:local
     build: ./result
     command: nodemon server.js
+    container_name: result
     volumes:
       - ./result:/app
     ports:
@@ -28,6 +30,7 @@ services:
 
   worker:
     image: worker:local
+    container_name: worker
     build:
       context: ./worker
     depends_on:
