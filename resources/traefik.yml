@@ -49,24 +49,24 @@ services:
         - "traefik.http.routers.result.tls.certresolver=acmeresolver"
         - "traefik.http.services.result.loadbalancer.server.port=80"
 
-  # Only used for Kibana with ELK stack
-  kibana:
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.kibana.rule=Host(`kibana.pierre1.training.crafteo.io`)"
-        - "traefik.http.routers.kibana.entrypoints=websecure"
-        - "traefik.http.routers.kibana.tls=true"
-        - "traefik.http.routers.kibana.tls.certresolver=acmeresolver"
-        - "traefik.http.services.kibana.loadbalancer.server.port=5601"
+  # # Only used for Kibana with ELK stack
+  # kibana:
+  #   deploy:
+  #     labels:
+  #       - "traefik.enable=true"
+  #       - "traefik.http.routers.kibana.rule=Host(`kibana.pierre1.training.crafteo.io`)"
+  #       - "traefik.http.routers.kibana.entrypoints=websecure"
+  #       - "traefik.http.routers.kibana.tls=true"
+  #       - "traefik.http.routers.kibana.tls.certresolver=acmeresolver"
+  #       - "traefik.http.services.kibana.loadbalancer.server.port=5601"
 
-  # Only used for Kibana with ELK stack
-  portainer:
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.portainer.rule=Host(`portainer.pierre1.training.crafteo.io`)"
-        - "traefik.http.routers.portainer.entrypoints=websecure"
-        - "traefik.http.routers.portainer.tls=true"
-        - "traefik.http.routers.portainer.tls.certresolver=acmeresolver"
-        - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+  # # Only used for Kibana with ELK stack
+  # portainer:
+  #   deploy:
+  #     labels:
+  #       - "traefik.enable=true"
+  #       - "traefik.http.routers.portainer.rule=Host(`portainer.pierre1.training.crafteo.io`)"
+  #       - "traefik.http.routers.portainer.entrypoints=websecure"
+  #       - "traefik.http.routers.portainer.tls=true"
+  #       - "traefik.http.routers.portainer.tls.certresolver=acmeresolver"
+  #       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
