@@ -2,8 +2,8 @@ version: "3"
 
 services:
   vote:
-    image: vote:local
-    build: ./vote
+    image: crafteo/example-voting-app-vote
+    build:  ./vote
     container_name: vote
     ports:
       - "5000:80"
@@ -48,8 +48,6 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-    volumes:
-      - "db-data:/var/lib/postgresql/data"
     networks:
       - back-tier
 
