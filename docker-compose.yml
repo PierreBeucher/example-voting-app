@@ -3,7 +3,6 @@ version: "3"
 services:
   vote:
     image: crafteo/example-voting-app-vote
-    build:  ./vote
     container_name: vote
     ports:
       - "5000:80"
