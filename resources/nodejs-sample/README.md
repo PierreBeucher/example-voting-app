@@ -5,7 +5,7 @@ A simple NodeJS app showing messages from config
 
 ## Usage
 
-Create a `config.yaml` file based on [`config-sample.yml`](./config-sample.yml). Then run:
+Create a `config.yaml` file based on [`config-sample.yml`](./config-sample.yaml). Then run:
 
 ```
 # Install Node dependencies
