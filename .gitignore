@@ -10,3 +10,6 @@ resources/daemon-tls/client
 resources/daemon-tls/ca
 resources/daemon-tls/server
 resources/daemon-tls/docker-daemon-config.json
+
+resources/nodejs-sample/Dockerfile
+resources/nodejs-sample/docker-compose.yml
