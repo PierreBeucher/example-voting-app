@@ -13,3 +13,6 @@ resources/daemon-tls/docker-daemon-config.json
 
 resources/nodejs-sample/Dockerfile
 resources/nodejs-sample/docker-compose.yml
+
+# Vote Dockerfile
+vote/Dockerfile

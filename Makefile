@@ -1,7 +1,7 @@
 .PHONY: vote vote-rm elk elk-rm portainer portainer-rm build
 
 build:
-	docker-compose build
+	docker-compose -f docker-compose.yml -f resources/docker-compose.build.yml build
 
 vote:
 	docker stack up voting-app -c docker-stack.yml
