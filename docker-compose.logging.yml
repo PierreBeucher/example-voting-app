@@ -1,23 +1,22 @@
-# Stack working with resources/elk-stack.yml stack
 version: "3"
 
 services:
   vote:
-    image: vote:local
+    image: crafteo/example-voting-app-vote:1.0-alpine
     build: ./vote
     container_name: vote
-    ports:
-      - "5000:80"
     logging:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:8089"
+    ports:
+      - "5000:80"
     networks:
       - front-tier
       - back-tier
 
   result:
-    image: result:local
+    image: crafteo/example-voting-app-result:1.0-alpine
     build: ./result
     command: nodemon server.js
     container_name: result
@@ -33,15 +32,15 @@ services:
       - back-tier
 
   worker:
-    image: worker:local
+    image: crafteo/example-voting-app-worker:1.0-alpine
+    build:
+      context: ./worker
+      dockerfile: Dockerfile.j
     container_name: worker
     logging:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:8089"
-    build:
-      context: ./worker
-      dockerfile: Dockerfile.j
     depends_on:
       - "redis"
       - "db"
@@ -49,20 +48,26 @@ services:
       - back-tier
 
   redis:
-    image: redis:alpine
+    image: redis:6.0-alpine3.15
     container_name: redis
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
     ports: ["6379"]
     networks:
       - back-tier
 
   db:
-    image: postgres:9.4
+    image: postgres:14.2-alpine3.15
     container_name: db
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-    volumes:
-      - "db-data:/var/lib/postgresql/data"
     networks:
       - back-tier
 

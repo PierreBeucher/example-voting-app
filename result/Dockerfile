@@ -1,4 +1,4 @@
-FROM node:10-slim
+FROM node:10-alpine
 
 WORKDIR /app
 
@@ -7,8 +7,7 @@ RUN npm install -g nodemon
 COPY package*.json ./
 
 RUN npm ci \
- && npm cache clean --force \
- && mv /app/node_modules /node_modules
+ && npm cache clean --force
 
 COPY . .
 
