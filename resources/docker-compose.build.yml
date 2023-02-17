@@ -10,4 +10,4 @@ services:
   worker:
     build:
       context: ./worker
-      dockerfile: Dockerfile.j
+      dockerfile: Dockerfile

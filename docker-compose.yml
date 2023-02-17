@@ -11,9 +11,6 @@ services:
         condition: service_healthy
     ports:
       - "5000:80"
-    networks:
-      - front-tier
-      - back-tier
 
   result:
     image: crafteo/example-voting-app-result:1.1-alpine
@@ -22,9 +19,6 @@ services:
     ports:
       - "5001:80"
       - "5858:5858"
-    networks:
-      - front-tier
-      - back-tier
     depends_on:
       db:
         condition: service_healthy 
@@ -37,8 +31,6 @@ services:
         condition: service_healthy 
       db:
         condition: service_healthy 
-    networks:
-      - back-tier
 
   redis:
     image: redis:7.0.8-alpine3.17
@@ -49,8 +41,6 @@ services:
     healthcheck:
       test: /healthchecks/redis.sh
       interval: "5s"
-    networks:
-      - back-tier
 
   db:
     image: postgres:15.2-alpine3.17
@@ -63,12 +53,6 @@ services:
     healthcheck:
       test: /healthchecks/postgres.sh
       interval: "5s"
-    networks:
-      - back-tier
 
 volumes:
   db-data:
-
-networks:
-  front-tier:
-  back-tier:
