@@ -1,4 +1,6 @@
-version: "3"
+# version is now using "compose spec"
+# v2 and v3 are now combined!
+# docker-compose v1.27+ required
 
 services:
   vote:
@@ -30,8 +32,10 @@ services:
       context: ./worker
       dockerfile: Dockerfile.j
     depends_on:
-      - "redis"
-      - "db"
+      redis:
+        condition: service_healthy 
+      db:
+        condition: service_healthy 
     networks:
       - back-tier
 
@@ -50,6 +54,19 @@ services:
       POSTGRES_PASSWORD: "postgres"
     networks:
       - back-tier
+
+  # this service runs once to seed the database with votes
+  # it won't run unless you specify the "seed" profile
+  # docker compose --profile seed up -d
+  seed:
+    build: ./seed-data
+    profiles: ["seed"]
+    depends_on:
+      vote:
+        condition: service_healthy 
+    networks:
+      - front-tier
+    restart: "no"
 
 volumes:
   db-data:

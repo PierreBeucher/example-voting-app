@@ -64,7 +64,7 @@ services:
           memory: 50M
 
   db:
-    image: postgres:9.4
+    image: postgres:15-alpine
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
