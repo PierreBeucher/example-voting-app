@@ -53,6 +53,3 @@ services:
     healthcheck:
       test: /healthchecks/postgres.sh
       interval: "5s"
-
-volumes:
-  db-data:

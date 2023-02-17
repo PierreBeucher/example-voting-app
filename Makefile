@@ -3,26 +3,14 @@
 build:
 	docker-compose -f docker-compose.yml -f resources/docker-compose.build.yml build
 
-vote:
-	docker stack up voting-app -c docker-stack.yml
-
-vote-rm:
-	docker stack rm voting-app
-
 elk:
-	docker stack up elk -c resources/elk-stack.yml
+	docker compose -f resources/elk-stack.yml up -d 
 
-elk-rm:
-	docker stack rm elk
+logging:
+	docker compose -f docker-compose.yml -f resources/logging.yml up -d 
 
 portainer:
-	docker stack up portainer -c resources/portainer-stack.yml
+	docker compose -f resources/portainer.yml up -d 
 
-portainer-rm:
-	docker stack rm portainer
-
-sync:
-	rsync -r ./ ubuntu@pierre1.training.crafteo.io:~
-
-stats:
-	docker ps -q | xargs docker stats --no-stream
+traefik:
+	docker compose -f docker-compose.yml -f resources/traefik.yml up -d
