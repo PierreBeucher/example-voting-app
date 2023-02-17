@@ -1,0 +1,9 @@
+services:
+  # vote:
+  #   build: ./vote
+
+  result:
+    build: ./result
+
+  worker:
+    build: ./worker
