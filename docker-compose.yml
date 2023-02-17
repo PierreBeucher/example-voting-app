@@ -32,8 +32,6 @@ services:
   worker:
     image: crafteo/example-voting-app-worker:1.1-alpine
     container_name: worker
-    build:
-      context: ./worker
     depends_on:
       redis:
         condition: service_healthy 
@@ -67,19 +65,6 @@ services:
       interval: "5s"
     networks:
       - back-tier
-
-  # this service runs once to seed the database with votes
-  # it won't run unless you specify the "seed" profile
-  # docker compose --profile seed up -d
-  seed:
-    build: ./seed-data
-    profiles: ["seed"]
-    depends_on:
-      vote:
-        condition: service_healthy 
-    networks:
-      - front-tier
-    restart: "no"
 
 volumes:
   db-data:
