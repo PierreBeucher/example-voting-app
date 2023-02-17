@@ -4,3 +4,27 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:8089"
+
+  result:
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
+
+  worker:
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
+
+  redis:
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"
+
+  db:
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8089"

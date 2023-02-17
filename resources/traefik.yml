@@ -6,6 +6,7 @@ version: "3"
 services:
   traefik:
     image: traefik:v2.3
+    container_name: traefik
     command:
       - "--api.insecure=true"
       - "--entrypoints.web.address=:80"
@@ -21,9 +22,6 @@ services:
       - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    networks:
-    - front-tier
-    - back-tier
 
   vote:
     labels:
