@@ -26,7 +26,7 @@ services:
   vote:
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.vote.rule=Host(`vote.pierre.training.crafteo.io`)"
+        - "traefik.http.routers.vote.rule=Host(`${VOTE_URL}`)"
         - "traefik.http.routers.vote.entrypoints=websecure"
         - "traefik.http.routers.vote.tls=true"
         - "traefik.http.routers.vote.tls.certresolver=acmeresolver"
@@ -35,7 +35,7 @@ services:
   result:
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.result.rule=Host(`result.pierre.training.crafteo.io`)"
+        - "traefik.http.routers.result.rule=Host(`${RESULT_URL}`)"
         - "traefik.http.routers.result.entrypoints=websecure"
         - "traefik.http.routers.result.tls=true"
         - "traefik.http.routers.result.tls.certresolver=acmeresolver"
