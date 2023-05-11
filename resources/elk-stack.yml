@@ -5,6 +5,9 @@ services:
     environment:
     - "discovery.type=single-node"
     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+    - 8091:9200
+    - 8092:9300
 
   kibana:
     image: kibana:7.7.0
