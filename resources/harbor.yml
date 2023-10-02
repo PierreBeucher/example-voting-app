@@ -1,0 +1,16 @@
+# version is now using "compose spec"
+# v2 and v3 are now combined!
+# docker-compose v1.27+ required
+
+services:
+  vote:
+    image: demo.goharbor.io/crafteo/example-voting-app/vote:1.1-alpine
+    build: ./vote
+
+  result:
+    image: demo.goharbor.io/crafteo/example-voting-app/result:1.1-alpine
+    build: ./result
+
+  worker:
+    image: demo.goharbor.io/crafteo/example-voting-app/worker:1.1-alpine
+    build: ./worker
