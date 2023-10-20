@@ -4,6 +4,7 @@ bin/
 obj/
 .vs/
 node_modules/
+kubeconfig
 
 # Docker certs
 resources/daemon-tls/client
