@@ -18,7 +18,6 @@ services:
     container_name: result
     ports:
       - "5001:80"
-      - "5858:5858"
     depends_on:
       db:
         condition: service_healthy 

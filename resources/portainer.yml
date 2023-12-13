@@ -4,7 +4,6 @@ services:
   portainer:
     image: portainer/portainer-ce:2.17.0-alpine
     ports:
-      - "8085:8000"
       - "8086:9443"
     volumes:
       - portainer_data:/data
