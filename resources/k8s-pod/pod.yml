@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello
+spec:
+  containers:
+    - name: hello-app
+      image: us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
+      ports:
+        - containerPort: 8080
+      resources:
+        requests:
+          memory: 8Mi
+          cpu: 5m
+        limits:
+          memory: 16Mi
+          cpu: 10m
