@@ -1,7 +1,6 @@
 # Extends ../docker-compose.yml
 # Use with
 #  docker-compose -f docker-compose.yml -f resources/traefik.yml up -d
-version: "3"
 
 services:
   traefik:
