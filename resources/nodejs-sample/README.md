@@ -14,6 +14,6 @@ npm install
 # Run node app
 node app.js
 
-# App should not respond to web request
+# App should now respond to web request
 # For example, localhost:8080
 ```
