@@ -7,18 +7,31 @@ services:
     image: traefik:v2.3
     container_name: traefik
     command:
-      - "--api.insecure=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
+      - --api.insecure=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
       # Enable Let's Encrypt
       - --certificatesresolvers.acmeresolver.acme.email=acme@crafteo.io
       - --certificatesresolvers.acmeresolver.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.acmeresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      # - --log.level=DEBUG # Enable debug logs 
+    
+    #
+    # Container use non standard port for demo (8080 and 4443 instead fof 80 and 443)
+    # as port 80 and 443 are already used by system component (eg. Caddy server).
+    # Real Production deployment should use 80 and 443. 
+    #
+    # Note for ACME HTTP challenge: port 80 is REQUIRED for ACME challenge to work.
+    # Under the hood our sandbox environment redirect external port 80 to localhost 8080
+    # Allowing ACME challenge to go through as    ACME -> *:80 -> localhost:8080 -> Traefik
+    # Instead of straightforward                  ACME -> *:80 Traefik
+    # But result is the same :)
+    #
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "4443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
