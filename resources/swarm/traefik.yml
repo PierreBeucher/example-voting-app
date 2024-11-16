@@ -1,0 +1,37 @@
+# Extends ../docker-compose.yml
+# Use with
+#  docker-compose -f docker-compose.yml -f resources/traefik.yml up -d
+
+services:
+  traefik:
+    image: traefik:v3.2
+    command:
+      - --providers.swarm.exposedByDefault=false
+      - --providers.swarm.network=proxy
+      - --api.insecure=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      # Enable Let's Encrypt
+      - --certificatesresolvers.acmeresolver.acme.email=acme@crafteo.io
+      - --certificatesresolvers.acmeresolver.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.acmeresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --log.level=DEBUG
+    ports:
+      - "8080:80"
+      - "4443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+    - pierre_default
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role==manager
+
+networks:
+  pierre_default:
+    external: true
+    name: pierre_default
