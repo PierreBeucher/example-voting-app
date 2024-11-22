@@ -1,0 +1,11 @@
+# Run a Docker CLI client mounting host docker socket
+# Example usage:
+#
+#   docker compose -f bind-mount-docker-socket.yml run docker-cli
+#   $ docker ps -a 
+services:
+  docker-cli:
+    image: docker:27.3.1-cli
+    container_name: docker-cli
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

@@ -1,0 +1,47 @@
+# Example run of a rootless Docker Daemon in a container
+# Use Docker socket inside a shared volume for client - daemon connection
+# Usage:
+#
+#     docker compose -f ./rootless-daemon-container.yml run docker-cli
+#     $ docker ps 
+services:
+
+  # dind-socket Volume has root permission by default
+  # Use this startup container to ensure /dind/socket is owned
+  # by user 1000 - matching the "rootless" user from dockerd-rootless container
+  socket-volume-permission:
+    image: alpine:latest
+    command:
+    - chown
+    - 1000:1000 
+    - /dind/socket
+    volumes:
+    - dind-socket:/dind/socket
+
+  dockerd-rootless:
+    image: docker:27.3.1-dind-rootless
+    container_name: dockerd-rootless
+    privileged: true
+    environment:
+      DOCKER_HOST: unix:///dind/socket/docker.sock
+    volumes:
+      - dind-socket:/dind/socket
+    # Run rootless daemon after volume initialization is done
+    depends_on:
+      socket-volume-permission:
+        condition: service_completed_successfully
+
+  # Run a Docker client alongside daemon
+  docker-cli:
+    image: docker:27.3.1-cli
+    container_name: docker-cli
+    environment:
+      - DOCKER_HOST=unix:///dind/socket/docker.sock
+    volumes:
+      - dind-socket:/dind/socket
+    depends_on:
+      dockerd-rootless:
+        condition: service_started
+
+volumes:
+  dind-socket:
