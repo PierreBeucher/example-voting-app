@@ -1,0 +1,7 @@
+FROM gcc:latest AS build
+COPY main.c .
+RUN gcc -O3 -s main.c -o app
+
+FROM debian:stable-slim
+COPY --from=build /app /app
+CMD ["/app"]
